@@ -12,16 +12,13 @@ class Header extends Component {
   render() {
     return (
       <Navbar style={{backgroundColor: "white", borderBottom: "1px solid #808080a8"}}>
-        <Navbar.Brand href=""><FaCar style={{fontSize: "35px", color: "midnightblue"}}/></Navbar.Brand>
+        <Navbar.Brand href=""><FaCar style={{fontSize: "35px", color: "#0e4f88"}}/></Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link href="#home">
-            <FaHome style={{fontSize: "20px", marginBottom: "5px"}}/> <span style={{fontSize: "20px"}}>Home</span>
+        <Nav.Link href="#general">
+            <FaMapMarkedAlt style={{fontSize: "20px", marginBottom: "5px"}}/> <span style={{fontSize: "20px"}}>General</span>
           </Nav.Link>
           <Nav.Link href="#inivual">
             <MdLocationOn style={{fontSize: "20px", marginBottom: "5px"}}/> <span style={{fontSize: "20px"}}>Individual</span>
-          </Nav.Link>
-          <Nav.Link href="#general">
-            <FaMapMarkedAlt style={{fontSize: "20px", marginBottom: "5px"}}/> <span style={{fontSize: "20px"}}>General</span>
           </Nav.Link>
         </Nav>
         <Form inline>

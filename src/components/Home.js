@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card';
 import Map from './MapCard'
 import Tools from './Tools'
 
-class Body extends Component {
+class Home extends Component {
   render() {
     const divStyle = {
         width: '100%',
@@ -27,4 +27,4 @@ class Body extends Component {
   }
 }
 
-export default Body;
+export default Home;
