@@ -7,6 +7,10 @@ import Tools from './Tools'
 import ToolsSetup from './ToolsSetup'
 
 const Home = props => {
+  let isObjectToAdd = false
+  if (props.objectToAdd !== ""){
+    isObjectToAdd = true
+  }
   const divStyle = {
       width: '100%',
       height: '87%',
@@ -22,7 +26,11 @@ const Home = props => {
   return (
     <div style={divStyle}>
         <div style={{display: "inline-block", height: "100%", width: "51%", float: "left"}}>
-          <MapCard mapClickable={props.mapClickable} mapClickableOnClick={props.mapClickableOnClick} mapLabels={props.map.labels}/>
+          <MapCard 
+            mapClickable={props.mapClickable} 
+            mapClickableOnClick={props.mapClickableOnClick} 
+            mapLabels={props.map.labels}
+            isObjectToAdd={isObjectToAdd}/>
         </div>
         <div style={{display: "inline-block", width: '47%', height: '100%', float: "right" }}>
           {tools}

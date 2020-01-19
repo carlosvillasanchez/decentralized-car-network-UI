@@ -47,11 +47,13 @@ export default function App() {
   
   function mapClickableOnClick(row, col){
     console.log(row, col);
-    var mapCopy = map;
-    var items = ["b", "c", "cc", "p"]
-    var item = items[Math.floor(Math.random()*items.length)];
-    mapCopy.labels[row][col] = item;
-    setMap({...mapCopy});
+    if(objectToAdd !== ""){
+      var mapCopy = map;
+      mapCopy.labels[row][col] = objectToAdd;
+      setMap({...mapCopy});
+      setobjectToAdd("");
+    }
+    
   }
 
   function addObject(type, random){
@@ -70,6 +72,8 @@ export default function App() {
       var mapCopy = map;
       mapCopy.labels[x][y] = type;
       setMap({...mapCopy});
+    }else{
+      setobjectToAdd(type);
     }
   }
   return (
@@ -81,7 +85,8 @@ export default function App() {
         mapClickable={mapClickable}
         mapClickableOnClick={mapClickableOnClick}
         map={map}
-        addObject={addObject}/>
+        addObject={addObject}
+        objectToAdd={objectToAdd}/>
     </div>
   );
 }

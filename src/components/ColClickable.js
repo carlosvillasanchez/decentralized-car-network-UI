@@ -22,6 +22,16 @@ const ColClickable = props => {
         let label = <span style={{color: "transparent", fontSize: "1.5rem"}}>X</span>
         if (props.mapLabels[rowNumber]){
             label = dict_Objects[props.mapLabels[rowNumber]]
+        }else if(props.isObjectToAdd){
+            return(
+                <Button 
+                variant="outline-secondary" 
+                key={key} 
+                style={{borderRadius: 0}} 
+                onClick={() => props.onClick(props.colNumber, rowNumber)}>
+                    <span style={{fontSize: "1.5rem"}}>X</span>
+                </Button> 
+            )
         }
         return <Button 
                     variant="outline-secondary" 

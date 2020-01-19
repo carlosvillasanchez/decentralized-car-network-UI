@@ -13,7 +13,10 @@ const MapCard = (props) => {
   let mapContent = <Map/>
   console.log("EPA", props.mapClickable)
   if (props.mapClickable) {
-    mapContent = <MapClickable onClick={props.mapClickableOnClick} mapLabels={props.mapLabels}/>
+    mapContent = <MapClickable 
+      onClick={props.mapClickableOnClick} 
+      mapLabels={props.mapLabels}
+      isObjectToAdd={props.isObjectToAdd}/>
   }
 
   return (

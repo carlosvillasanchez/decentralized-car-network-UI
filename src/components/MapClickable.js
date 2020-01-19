@@ -20,7 +20,13 @@ const MapClickable = props => {
     let incrementArray = Array.from(Array(xRange).keys())
     let content = incrementArray.map((colNumber) => {
         console.log("EJE", colNumber, props.mapLabels[colNumber])
-        return <RowClickable nRows={yRange} colNumber={colNumber} width={widthOfCol} onClick={props.onClick} mapLabels={props.mapLabels[colNumber]}/>
+        return <RowClickable 
+            nRows={yRange} 
+            colNumber={colNumber} 
+            width={widthOfCol} 
+            onClick={props.onClick}
+            mapLabels={props.mapLabels[colNumber]}
+            isObjectToAdd={props.isObjectToAdd}/>
     }
     )
     
