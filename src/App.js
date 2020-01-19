@@ -22,29 +22,66 @@ function createEmptyMap(){
 
 let initialMap = new Map(
   createEmptyMap(),
+  createEmptyMap(),
   new Array(),
   new Array(),
   new Array(),
   new Array()
 );
 
+function getRandomArbitrary(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
 export default function App() {
   // STATE
   let [screen, setScreen] = useState("Home");
   let [started, setStarted] = useState(false);
   let [map, setMap] = useState(initialMap);
-
+  let [mapClickable, setMapClickable] = useState(true);
+  let [objectToAdd, setobjectToAdd] = useState("");
   //FUNCTIONS
   function startStopSimulation(starting){
-    console.log("ICI2")
     setStarted(starting);
   }
+  
+  function mapClickableOnClick(row, col){
+    console.log(row, col);
+    var mapCopy = map;
+    var items = ["b", "c", "cc", "p"]
+    var item = items[Math.floor(Math.random()*items.length)];
+    mapCopy.labels[row][col] = item;
+    setMap({...mapCopy});
+  }
 
-  console.log(map)
+  function addObject(type, random){
+    var xRange = SimulationConstants.XCells*SimulationConstants.XAreas;
+    var yRange = SimulationConstants.YCells*SimulationConstants.YAreas;
+    if(random){
+      var x = getRandomArbitrary(0, xRange)
+      var y = getRandomArbitrary(0, yRange)
+      while(true){
+        if(map.labels[x][y] === undefined){
+          break
+        }
+        x = getRandomArbitrary(0, xRange)
+        y = getRandomArbitrary(0, yRange)
+      }
+      var mapCopy = map;
+      mapCopy.labels[x][y] = type;
+      setMap({...mapCopy});
+    }
+  }
   return (
     <div style={{width: '100%', height: '100%', backgroundColor: Colors.background}}>
       <Header/>
-      <Home started={started} startStopSimulation={startStopSimulation}/>
+      <Home 
+        started={started} 
+        startStopSimulation={startStopSimulation} 
+        mapClickable={mapClickable}
+        mapClickableOnClick={mapClickableOnClick}
+        map={map}
+        addObject={addObject}/>
     </div>
   );
 }

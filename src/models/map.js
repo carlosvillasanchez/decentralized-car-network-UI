@@ -1,13 +1,15 @@
 /* eslint-disable */
 class Map {
     constructor(
-        mapPositions,
+        objects,
+        labels,
         cars,
         carCrashes,
         parkingSpots,
         buildings
     ) {
-        this.mapPositions = mapPositions,
+        this.objects = objects,
+        this.labels = labels,
         this.cars = cars,
         this.carCrashes = carCrashes,
         this.parkingSpots = parkingSpots,

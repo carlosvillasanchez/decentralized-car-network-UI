@@ -6,7 +6,7 @@ import Area from './Area'
 ///// Own code imports
 import Colors from '../constants/colors'
 
-const MapCard = props => {
+const MapCard = (props) => {
     const divStyle = {
         width: '100%',
         height: '100%'

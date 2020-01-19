@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
@@ -13,7 +13,10 @@ import "../assets/stylesButton.css";
 ///// Own code imports
 import Colors from '../constants/colors'
 
+const typeObjectOrder = ["c", "b", "cc", "p"]
+const initialRandomState = [true, true, true, true]
 const ToolsSetup = props => {
+    let [randomState, setRandomState] = useState(initialRandomState);
     const divStyle = {
         width: '100%',
         height: '100%'
@@ -23,6 +26,14 @@ const ToolsSetup = props => {
         { value: 'police', label: 'Police car' },
         { value: 'ambulance', label: 'Ambulance' }
     ]
+    function changeRandom(index){
+        var randomStateCopy = randomState;
+        randomStateCopy[index] = !randomStateCopy[index]
+        setRandomState([...randomStateCopy])
+    }
+    function addObject(index){
+        props.addObject(typeObjectOrder[index], randomState[index])
+    }
     return (
         <div style={divStyle}>
             {/*ROW 1 OF TOOLS*/}
@@ -36,10 +47,14 @@ const ToolsSetup = props => {
                             <div style={{marginTop: "15px", display: "flex"}}>
                                 <Toggle
                                     defaultChecked={true}
+                                    onChange={() => changeRandom(0)}
                                     />
                                 <span style={{marginBottom: "auto", marginTop: "auto", textAlign: "left", marginLeft: "4px"}}>Random position</span>
                             </div>
-                            <AwesomeButton type="link" style={{position: "absolute", bottom: "15px", width: "92%", height: "25%", backgroundColor: "white", zIndex: 0}}>
+                            <AwesomeButton 
+                                type="link" 
+                                style={{position: "absolute", bottom: "15px", width: "92%", height: "25%", backgroundColor: "white", zIndex: 0}}
+                                onPress={() => addObject(0)}>
                                 Add new car
                             </AwesomeButton>
                         </div>
@@ -53,10 +68,14 @@ const ToolsSetup = props => {
                             <div style={{marginTop: "15px", display: "flex"}}>
                                 <Toggle
                                     defaultChecked={true}
+                                    onChange={() => changeRandom(1)}
                                     />
                                 <span style={{marginBottom: "auto", marginTop: "auto", textAlign: "left", marginLeft: "4px"}}>Random position</span>
                             </div>
-                            <AwesomeButton type="link" style={{position: "absolute", bottom: "15px", width: "92%", height: "25%", backgroundColor: "white", zIndex: 0}}>
+                            <AwesomeButton 
+                                type="link" 
+                                style={{position: "absolute", bottom: "15px", width: "92%", height: "25%", backgroundColor: "white", zIndex: 0}}
+                                onPress={() => addObject(1)}>
                                 Add new building
                             </AwesomeButton>
                         </div>
@@ -74,10 +93,14 @@ const ToolsSetup = props => {
                             <div style={{marginTop: "15px", display: "flex"}}>
                                 <Toggle
                                     defaultChecked={true}
+                                    onChange={() => changeRandom(2)}
                                     />
                                 <span style={{marginBottom: "auto", marginTop: "auto", textAlign: "left", marginLeft: "4px"}}>Random position</span>
                             </div>
-                            <AwesomeButton type="link" style={{position: "absolute", bottom: "15px", width: "92%", height: "25%", backgroundColor: "white", zIndex: 0}}>
+                            <AwesomeButton 
+                                type="link"
+                                style={{position: "absolute", bottom: "15px", width: "92%", height: "25%", backgroundColor: "white", zIndex: 0}}
+                                onPress={() => addObject(2)}>
                                 Add new car crash
                             </AwesomeButton>
                         </div>
@@ -91,10 +114,14 @@ const ToolsSetup = props => {
                             <div style={{marginTop: "15px", display: "flex"}}>
                                 <Toggle
                                     defaultChecked={true}
+                                    onChange={() => changeRandom(3)}
                                     />
                                 <span style={{marginBottom: "auto", marginTop: "auto", textAlign: "left", marginLeft: "4px"}}>Random position</span>
                             </div>
-                            <AwesomeButton type="link" style={{position: "absolute", bottom: "15px", width: "92%", height: "25%", backgroundColor: "white", zIndex: 0}}>
+                            <AwesomeButton 
+                                type="link"
+                                style={{position: "absolute", bottom: "15px", width: "92%", height: "25%", backgroundColor: "white", zIndex: 0}}
+                                onPress={() => addObject(3)}>
                                 Add new parking spot
                             </AwesomeButton>
                         </div>

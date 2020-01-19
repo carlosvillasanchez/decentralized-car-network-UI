@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
-import Map from './MapCard'
+import MapCard from './MapCard'
 import Tools from './Tools'
 import ToolsSetup from './ToolsSetup'
 
@@ -14,15 +14,15 @@ const Home = props => {
       paddingLeft: '2%',
       paddingRight: '2%'
   };
-  console.log("ICI", props.started)
-  let tools = <ToolsSetup startStopSimulation={props.startStopSimulation}/>
+  console.log("ICI", props.started, props.map)
+  let tools = <ToolsSetup startStopSimulation={props.startStopSimulation} addObject={props.addObject}/>
   if(props.started){
     tools = <Tools startStopSimulation={props.startStopSimulation}/>
   }
   return (
     <div style={divStyle}>
         <div style={{display: "inline-block", height: "100%", width: "51%", float: "left"}}>
-          <Map/>
+          <MapCard mapClickable={props.mapClickable} mapClickableOnClick={props.mapClickableOnClick} mapLabels={props.map.labels}/>
         </div>
         <div style={{display: "inline-block", width: '47%', height: '100%', float: "right" }}>
           {tools}
