@@ -14,7 +14,7 @@ let dict_Objects = {
     "p": <span style={{color: Colors.primary, fontSize: "1.5rem"}}><FaParking/></span>
 }
 
-const ColClickable = props => {
+const Col = props => {
     let incrementArray = Array.from(Array(props.nRows).keys())
     console.log(props.nRows)
     let content = incrementArray.map((rowNumber) => {
@@ -50,4 +50,4 @@ const ColClickable = props => {
     );
 }
 
-export default ColClickable;
+export default Col;

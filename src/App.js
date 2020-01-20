@@ -43,7 +43,6 @@ export default function App() {
   let [screen, setScreen] = useState("Home");
   let [started, setStarted] = useState(false);
   let [map, setMap] = useState(initialMap);
-  let [mapClickable, setMapClickable] = useState(true);
   let [objectToAdd, setobjectToAdd] = useState("");
   let [xyStored, setxyStored] = useState([])
   //FUNCTIONS
@@ -166,8 +165,7 @@ export default function App() {
       <Header/>
       <Home 
         started={started} 
-        startStopSimulation={startStopSimulation} 
-        mapClickable={mapClickable}
+        startStopSimulation={startStopSimulation}
         mapClickableOnClick={mapClickableOnClick}
         map={map}
         addObject={addObject}

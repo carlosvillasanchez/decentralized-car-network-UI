@@ -4,7 +4,6 @@ import Card from 'react-bootstrap/Card';
 
 import MapCard from './MapCard'
 import Tools from './Tools'
-import ToolsSetup from './ToolsSetup'
 
 const Home = props => {
   let isObjectToAdd = false
@@ -18,22 +17,20 @@ const Home = props => {
       paddingLeft: '2%',
       paddingRight: '2%'
   };
-  console.log("ICI", props.started, props.map)
-  let tools = <ToolsSetup startStopSimulation={props.startStopSimulation} addObject={props.addObject}/>
-  if(props.started){
-    tools = <Tools startStopSimulation={props.startStopSimulation}/>
-  }
   return (
     <div style={divStyle}>
         <div style={{display: "inline-block", height: "100%", width: "51%", float: "left"}}>
           <MapCard 
-            mapClickable={props.mapClickable} 
             mapClickableOnClick={props.mapClickableOnClick} 
             mapLabels={props.map.labels}
             isObjectToAdd={isObjectToAdd}/>
         </div>
         <div style={{display: "inline-block", width: '47%', height: '100%', float: "right" }}>
-          {tools}
+          <Tools 
+            startStopSimulation={props.startStopSimulation} 
+            addObject={props.addObject}
+            started={props.started}
+          />
       </div>
     </div>
   );
