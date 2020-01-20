@@ -95,7 +95,7 @@ const Tools = props => {
                 </Card>
                 <Card style={{width: '49%', height: '100%', float: "right", ...disableCard}}>
                         <div style={{widht: "100%", height: "20%", backgroundColor: "white", color: Colors.primary, display: "flex", paddingLeft: "18px", paddingTop: "10px"}}>
-                            <FaBuilding style={{marginBottom: "auto", marginTop: "auto", fontSize: "28px"}}/>
+                            <FaBuilding style={{marginBottom: "auto", marginTop: "auto", fontSize: "28px", color: "#6c757d"}}/>
                         </div>
                         <div style={{position: "relative", height: "80%", width: "100%", paddingBottom: "15px", paddingLeft: "15px", paddingRight: "15px", paddingTop: "10px"}}>
                             <Select options={carOptions} />
@@ -120,7 +120,7 @@ const Tools = props => {
             <div style={{widht: '100%', height: '32%', marginBottom: '2%'}}>
                 <Card style={{width: '49%', height: '100%', float: "left"}}>
                         <div style={{widht: "100%", height: "20%", backgroundColor: "white", color: Colors.primary, display: "flex", paddingLeft: "18px", paddingTop: "10px"}}>
-                            <FaCarCrash style={{marginBottom: "auto", marginTop: "auto", fontSize: "28px"}}/>
+                            <FaCarCrash style={{marginBottom: "auto", marginTop: "auto", fontSize: "28px", color: "red"}}/>
                         </div>
                         <div style={{position: "relative", height: "80%", width: "100%", paddingBottom: "15px", paddingLeft: "15px", paddingRight: "15px", paddingTop: "10px"}}>
                             <Select options={carOptions} style={{zIndex: 3}} />

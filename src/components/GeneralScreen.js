@@ -1,11 +1,9 @@
-import React, { Component } from "react";
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import React from "react";
 
 import MapCard from './MapCard'
 import Tools from './Tools'
 
-const Home = props => {
+const GeneralScreen = props => {
   let isObjectToAdd = false
   if (props.objectToAdd !== ""){
     isObjectToAdd = true
@@ -37,4 +35,4 @@ const Home = props => {
 }
 
 
-export default Home;
+export default GeneralScreen;

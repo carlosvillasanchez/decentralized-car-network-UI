@@ -4,7 +4,8 @@ import './App.css';
 
 ///// Own code imports
 import Header from './components/Header';
-import Home from './components/Home';
+import GeneralScreen from './components/GeneralScreen';
+import IndividualScreen from './components/IndividualScreen'
 import Colors from './constants/colors';
 import SimulationConstants from './constants/simulationConstants';
 
@@ -40,12 +41,16 @@ function getRandomArbitrary(min, max) {
 
 export default function App() {
   // STATE
-  let [screen, setScreen] = useState("Home");
+  let [screen, setScreen] = useState("General");
   let [started, setStarted] = useState(false);
   let [map, setMap] = useState(initialMap);
   let [objectToAdd, setobjectToAdd] = useState("");
   let [xyStored, setxyStored] = useState([])
   //FUNCTIONS
+  function changeScreen(newScreen){
+    setScreen(newScreen);
+  }
+
   function startStopSimulation(starting){
     setStarted(starting);
   }
@@ -160,16 +165,21 @@ export default function App() {
       setobjectToAdd(type);
     }
   }
+  let screenToRender = <GeneralScreen 
+                  started={started} 
+                  startStopSimulation={startStopSimulation}
+                  mapClickableOnClick={mapClickableOnClick}
+                  map={map}
+                  addObject={addObject}
+                  objectToAdd={objectToAdd}/>
+
+  if (screen === "Individual"){
+    screenToRender = <IndividualScreen started={started} />
+  }
   return (
     <div style={{width: '100%', height: '100%', backgroundColor: Colors.background}}>
-      <Header/>
-      <Home 
-        started={started} 
-        startStopSimulation={startStopSimulation}
-        mapClickableOnClick={mapClickableOnClick}
-        map={map}
-        addObject={addObject}
-        objectToAdd={objectToAdd}/>
+      <Header screen={screen} changeScreen={changeScreen}/>
+      {screenToRender}
     </div>
   );
 }
