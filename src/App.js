@@ -6,8 +6,13 @@ import './App.css';
 import Header from './components/Header';
 import Home from './components/Home';
 import Colors from './constants/colors';
-import Map from './models/map';
 import SimulationConstants from './constants/simulationConstants';
+
+import Map from './models/map';
+import Building from './models/building';
+import Car from './models/car';
+import CarCrash from './models/carCrash';
+import ParkingSpot from './models/parkingSpot';
 
 function createEmptyMap(){
   var xRange = SimulationConstants.XCells*SimulationConstants.XAreas;
@@ -40,18 +45,79 @@ export default function App() {
   let [map, setMap] = useState(initialMap);
   let [mapClickable, setMapClickable] = useState(true);
   let [objectToAdd, setobjectToAdd] = useState("");
+  let [xyStored, setxyStored] = useState([])
   //FUNCTIONS
   function startStopSimulation(starting){
     setStarted(starting);
   }
+
+  function addNewBuilding(x, y){
+    var mapCopy = map;
+    var id = mapCopy.buildings.length;
+    var newBuilding = new Building(id, x, y);
+    mapCopy.buildings.push(newBuilding);
+    mapCopy.labels[x][y] = "b";
+    setMap({...mapCopy});
+    setobjectToAdd("");
+  }
+
+  function addNewCarCrash(x, y){
+    var mapCopy = map;
+    var id = mapCopy.carCrashes.length;
+    var newCarcrash = new CarCrash(id, x, y, 0, 0);
+    mapCopy.carCrashes.push(newCarcrash);
+    mapCopy.labels[x][y] = "cc";
+    setMap({...mapCopy});
+    setobjectToAdd("");
+  }
+
+  function addNewParking(x, y){
+    var mapCopy = map;
+    var id = mapCopy.parkingSpots.length;
+    var newParkingSpot = new ParkingSpot(id, x, y, 0, 0);
+    mapCopy.parkingSpots.push(newParkingSpot);
+    mapCopy.labels[x][y] = "p";
+    setMap({...mapCopy});
+    setobjectToAdd("");
+  }
   
-  function mapClickableOnClick(row, col){
-    console.log(row, col);
-    if(objectToAdd !== ""){
-      var mapCopy = map;
-      mapCopy.labels[row][col] = objectToAdd;
-      setMap({...mapCopy});
+  function addNewCar(x, y){
+    console.log("IZIIII")
+    var mapCopy = map;
+    if(xyStored.length === 0){
+      console.log("IZIIII 1")
+      setxyStored([x, y]);
+      mapCopy.labels[x][y] = objectToAdd;
+    }else{
+      console.log("IZIIII 2")
       setobjectToAdd("");
+      setxyStored([]);
+      var id = mapCopy.cars.length;
+      var port = 5005 + id
+      var newParkingSpot = new Car(id, "127.0.0.1", port, x, y, xyStored[0], xyStored[1], new Array(), new Array(), new Array());
+      mapCopy.parkingSpots.push(newParkingSpot);
+    }
+    setMap({...mapCopy});
+    
+  }
+
+  function mapClickableOnClick(x, y){
+    console.log(x, y);
+    switch(objectToAdd){
+      case "c":
+        addNewCar(x,y)
+        break;
+      case "b":
+        addNewBuilding(x,y)
+        break;
+      case "cc":
+        addNewCarCrash(x,y)
+        break;
+      case "p":
+        addNewParking(x,y)
+        break;
+      default:
+        console.log("NADA")
     }
     
   }
@@ -69,9 +135,28 @@ export default function App() {
         x = getRandomArbitrary(0, xRange)
         y = getRandomArbitrary(0, yRange)
       }
-      var mapCopy = map;
-      mapCopy.labels[x][y] = type;
-      setMap({...mapCopy});
+      switch(type){
+        case "c":
+          var mapCopy = map;
+          mapCopy.labels[x][y] = "c";
+          var x2 = getRandomArbitrary(0, xRange)
+          var y2 = getRandomArbitrary(0, yRange)
+          var id = mapCopy.cars.length;
+          var port = 5005 + id
+          var newParkingSpot = new Car(id, "127.0.0.1", port, x, y, x2, y2, new Array(), new Array(), new Array());
+          mapCopy.parkingSpots.push(newParkingSpot);
+          setMap({...mapCopy})
+          break;
+        case "b":
+          addNewBuilding(x,y)
+          break;
+        case "cc":
+          addNewCarCrash(x,y)
+          break;
+        case "p":
+          addNewParking(x,y)
+          break;
+        }
     }else{
       setobjectToAdd(type);
     }
