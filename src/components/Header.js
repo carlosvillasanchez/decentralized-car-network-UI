@@ -18,14 +18,15 @@ import Torstein from '../assets/Torstein.jpg';
 
 const Header = props => {
   if(props.screen === "General"){
+    console.log("GENERAL!")
     return (
       <Navbar style={{backgroundColor: "white", borderBottom: "1px solid #808080a8"}}>
         <Navbar.Brand href=""><FaCar style={{fontSize: "35px", color: "#0e4f88"}}/></Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link href="#general" active>
+          <Nav.Link href="" active>
             <FaMapMarkedAlt style={{fontSize: "20px", marginBottom: "5px"}}/> <span style={{fontSize: "20px"}}>General</span>
           </Nav.Link>
-          <Nav.Link href="#inivual" onClick={() => props.changeScreen("Individual")}>
+          <Nav.Link href="" onClick={() => props.changeScreen("Individual")}>
             <MdLocationOn style={{fontSize: "20px", marginBottom: "5px"}}/> <span style={{fontSize: "20px"}}>Individual</span>
           </Nav.Link>
         </Nav>
@@ -48,22 +49,35 @@ const Header = props => {
       </Navbar>
     );
   }else{
+    console.log("PAS DE GENERAL")
     return (
       <Navbar style={{backgroundColor: "white", borderBottom: "1px solid #808080a8"}}>
-        <Navbar.Brand href=""><FaCar style={{fontSize: "35px", color: "#0e4f88"}}/></Navbar.Brand>
-        <Nav className="mr-auto">
-          <Nav.Link href="#general"  onClick={() => props.changeScreen("General")}>
-            <FaMapMarkedAlt style={{fontSize: "20px", marginBottom: "5px"}}/> <span style={{fontSize: "20px"}}>General</span>
-          </Nav.Link>
-          <Nav.Link href="#inivual" active>
-            <MdLocationOn style={{fontSize: "20px", marginBottom: "5px"}}/> <span style={{fontSize: "20px"}}>Individual</span>
-          </Nav.Link>
-        </Nav>
-        <Form inline>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-primary">Search</Button>
-        </Form>
-      </Navbar>
+      <Navbar.Brand href=""><FaCar style={{fontSize: "35px", color: "#0e4f88"}}/></Navbar.Brand>
+      <Nav className="mr-auto">
+        <Nav.Link href="" onClick={() => props.changeScreen("General")}>
+          <FaMapMarkedAlt style={{fontSize: "20px", marginBottom: "5px"}}/> <span style={{fontSize: "20px"}}>General</span>
+        </Nav.Link>
+        <Nav.Link href="" active>
+          <MdLocationOn style={{fontSize: "20px", marginBottom: "5px"}}/> <span style={{fontSize: "20px"}}>Individual</span>
+        </Nav.Link>
+      </Nav>
+      <Avatar.List>
+        <Avatar 
+          onClick={() => window.location = 'https://www.linkedin.com/in/carlos-villa-sanchez/'} 
+          size="md" 
+          imageURL={Carlos}
+          style={{cursor: "pointer"}} />
+        <Avatar 
+          onClick={() => window.location = 'https://www.linkedin.com/in/fernando-monje/'} 
+          size="md" 
+          imageURL={Fernando}
+          style={{cursor: "pointer"}}  />
+        <Avatar 
+          size="md" 
+          imageURL={Torstein}
+          style={{cursor: "pointer"}}  />
+      </Avatar.List>
+    </Navbar>
     );
   }
  
