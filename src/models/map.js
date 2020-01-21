@@ -14,7 +14,7 @@ class Map {
         this.carCrashes = carCrashes,
         this.parkingSpots = parkingSpots,
         this.buildings = buildings
-    }
+    } 
 }
 
 export default Map;

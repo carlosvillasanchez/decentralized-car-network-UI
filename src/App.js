@@ -46,18 +46,33 @@ export default function App() {
   let [map, setMap] = useState(initialMap);
   let [objectToAdd, setobjectToAdd] = useState("");
   let [xyStored, setxyStored] = useState([])
+  let [selectedCar, setSelectedCar] = useState()
+  let [idCars, setIdCars] = useState(0)
+  let [idBuildings, setIdBuildings] = useState(0)
+  let [idCarCrashes, setIdCarCrashes] = useState(0)
+  let [idParkingSpots, setIdParkingSpots] = useState(0)
   //FUNCTIONS
   function changeScreen(newScreen){
     setScreen(newScreen);
   }
 
   function startStopSimulation(starting){
+    if(starting){
+      if(map.cars.length === 0){
+        console.log("FIRST ADD CARS")
+        return
+      }else{
+        var indexOfCar = getRandomArbitrary(0, map.cars.length)
+        setSelectedCar(map.cars[indexOfCar])
+      }
+    }
     setStarted(starting);
   }
 
   function addNewBuilding(x, y){
     var mapCopy = map;
-    var id = mapCopy.buildings.length;
+    var id = idBuildings;
+    setIdBuildings(id => id + 1)
     var newBuilding = new Building(id, x, y);
     mapCopy.buildings.push(newBuilding);
     mapCopy.labels[x][y] = "b";
@@ -67,7 +82,8 @@ export default function App() {
 
   function addNewCarCrash(x, y){
     var mapCopy = map;
-    var id = mapCopy.carCrashes.length;
+    var id = idCarCrashes;
+    setIdCarCrashes(id => id + 1)
     var newCarcrash = new CarCrash(id, x, y, 0, 0);
     mapCopy.carCrashes.push(newCarcrash);
     mapCopy.labels[x][y] = "cc";
@@ -77,7 +93,8 @@ export default function App() {
 
   function addNewParking(x, y){
     var mapCopy = map;
-    var id = mapCopy.parkingSpots.length;
+    var id = idParkingSpots;
+    setIdParkingSpots(id => id + 1)
     var newParkingSpot = new ParkingSpot(id, x, y, 0, 0);
     mapCopy.parkingSpots.push(newParkingSpot);
     mapCopy.labels[x][y] = "p";
@@ -96,10 +113,12 @@ export default function App() {
       console.log("IZIIII 2")
       setobjectToAdd("");
       setxyStored([]);
-      var id = mapCopy.cars.length;
+      var id = idCars;
+      setIdCars(id => id + 1)
       var port = 5005 + id
-      var newParkingSpot = new Car(id, "127.0.0.1", port, x, y, xyStored[0], xyStored[1], new Array(), new Array(), new Array());
-      mapCopy.parkingSpots.push(newParkingSpot);
+      var newCar = new Car(id, "127.0.0.1", port, xyStored[0], xyStored[1], x, y, new Array(), new Array(), new Array());
+      map.objects[xyStored[0]][xyStored[1]] = id
+      mapCopy.cars.push(newCar);
     }
     setMap({...mapCopy});
     
@@ -121,7 +140,20 @@ export default function App() {
         addNewParking(x,y)
         break;
       default:
-        console.log("NADA")
+        if(started){
+          console.log("Started", map.objects[x][y], map.objects)
+          if(map.objects[x][y] !== undefined){
+            let id = map.objects[x][y]
+            for(var i=0; i<map.cars.length; i++){
+              console.log(i, map.cars[i].id)
+              if(map.cars[i].id === id){
+                setSelectedCar(map.cars[i]);
+                setScreen("Individual");
+                break;
+              }
+            }
+          }
+        }
     }
     
   }
@@ -145,10 +177,12 @@ export default function App() {
           mapCopy.labels[x][y] = "c";
           var x2 = getRandomArbitrary(0, xRange)
           var y2 = getRandomArbitrary(0, yRange)
-          var id = mapCopy.cars.length;
+          var id = idCars;
+          setIdCars(id => id + 1)
           var port = 5005 + id
-          var newParkingSpot = new Car(id, "127.0.0.1", port, x, y, x2, y2, new Array(), new Array(), new Array());
-          mapCopy.parkingSpots.push(newParkingSpot);
+          var newCar = new Car(id, "127.0.0.1", port, x, y, x2, y2, new Array(), new Array(), new Array());
+          map.objects[x][y] = id
+          mapCopy.cars.push(newCar);
           setMap({...mapCopy})
           break;
         case "b":
@@ -165,21 +199,18 @@ export default function App() {
       setobjectToAdd(type);
     }
   }
-  let screenToRender = <GeneralScreen 
+  return (
+    <div style={{width: '100%', height: '100%', backgroundColor: Colors.background}}>
+      <Header screen={screen} changeScreen={changeScreen}/>
+      <GeneralScreen 
                   started={started} 
                   startStopSimulation={startStopSimulation}
                   mapClickableOnClick={mapClickableOnClick}
                   map={map}
                   addObject={addObject}
-                  objectToAdd={objectToAdd}/>
-
-  if (screen === "Individual"){
-    screenToRender = <IndividualScreen started={started} />
-  }
-  return (
-    <div style={{width: '100%', height: '100%', backgroundColor: Colors.background}}>
-      <Header screen={screen} changeScreen={changeScreen}/>
-      {screenToRender}
+                  objectToAdd={objectToAdd}
+                  screen={screen}
+                  selectedCar={selectedCar}/>
     </div>
   );
 }

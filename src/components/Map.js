@@ -9,7 +9,14 @@ import SimulationConstants from '../constants/simulationConstants';
 import Colors from '../constants/colors'
 
 const Map = props => {
-    
+    let xSelectedCar = -1
+    let ySelectedCar = -1
+    if(props.screen === "Individual"){
+        console.log("SELECTED CAR:",xSelectedCar, ySelectedCar)
+        xSelectedCar = props.selectedCar.initialX
+        ySelectedCar = props.selectedCar.initialY
+    }
+
     const divStyle = {
         width: '100%',
         height: '100%'
@@ -20,13 +27,24 @@ const Map = props => {
     let incrementArray = Array.from(Array(xRange).keys())
     let content = incrementArray.map((colNumber) => {
         console.log("EJE", colNumber, props.mapLabels[colNumber])
+        if(colNumber === xSelectedCar){
+            return <Col 
+                        nRows={yRange} 
+                        colNumber={colNumber} 
+                        width={widthOfCol} 
+                        onClick={props.onClick}
+                        mapLabels={props.mapLabels[colNumber]}
+                        isObjectToAdd={props.isObjectToAdd}
+                        selectedCar={ySelectedCar}/>
+        }
         return <Col 
-            nRows={yRange} 
-            colNumber={colNumber} 
-            width={widthOfCol} 
-            onClick={props.onClick}
-            mapLabels={props.mapLabels[colNumber]}
-            isObjectToAdd={props.isObjectToAdd}/>
+                    nRows={yRange} 
+                    colNumber={colNumber} 
+                    width={widthOfCol} 
+                    onClick={props.onClick}
+                    mapLabels={props.mapLabels[colNumber]}
+                    isObjectToAdd={props.isObjectToAdd}
+                    selectedCar={-1}/>
     }
     )
     

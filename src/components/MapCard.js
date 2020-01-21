@@ -17,7 +17,9 @@ const MapCard = (props) => {
               <Map 
                 onClick={props.mapClickableOnClick} 
                 mapLabels={props.mapLabels}
-                isObjectToAdd={props.isObjectToAdd}/>
+                isObjectToAdd={props.isObjectToAdd}
+                screen={props.screen}
+                selectedCar={props.selectedCar}/>
               </Card.Text>
           </Card.Body>
       </Card>

@@ -10,6 +10,7 @@ import Colors from '../constants/colors'
 let dict_Objects = {
     "b":  <span  style={{fontSize: "1.5rem"}}><FaBuilding/></span>,
     "c": <span style={{color: Colors.primary, fontSize: "1.5rem"}}><FaCar/></span>,
+    "cs": <span style={{color: "green", fontSize: "1.5rem"}}><FaCar/></span>,
     "cc": <span style={{color: "red", fontSize: "1.5rem"}}><FaCarCrash/></span>,
     "p": <span style={{color: Colors.primary, fontSize: "1.5rem"}}><FaParking/></span>
 }
@@ -21,7 +22,11 @@ const Col = props => {
         let key = "" + rowNumber + props.colNumber
         let label = <span style={{color: "transparent", fontSize: "1.5rem"}}>X</span>
         if (props.mapLabels[rowNumber]){
-            label = dict_Objects[props.mapLabels[rowNumber]]
+            if(props.mapLabels[rowNumber] === "c" && props.selectedCar === rowNumber){
+                label = dict_Objects[props.mapLabels[rowNumber]+ "s"]
+            }else{
+                label = dict_Objects[props.mapLabels[rowNumber]]
+            }
         }else if(props.isObjectToAdd){
             return(
                 <Button 
