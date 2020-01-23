@@ -31,12 +31,13 @@ const GeneralScreen = props => {
   
 
   // MAP TO RENDER
-  let mapToRender = <MapCard 
+  let mapToRender = <MapCard
                       mapClickableOnClick={props.mapClickableOnClick} 
                       mapLabels={props.map.labels}
                       isObjectToAdd={isObjectToAdd}
                       screen={props.screen}
-                      selectedCar={props.selectedCar}/>
+                      selectedCar={props.selectedCar}
+                      prueba={props.prueba}/>
   if(props.screen === "Individual"){
     toolsToRender = <div></div>
   }

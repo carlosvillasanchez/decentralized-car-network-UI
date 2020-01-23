@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import ReactInterval from 'react-interval';
 
 ///// Own code imports
 import Header from './components/Header';
@@ -15,16 +16,19 @@ import Car from './models/car';
 import CarCrash from './models/carCrash';
 import ParkingSpot from './models/parkingSpot';
 
-function createEmptyMap(){
-  var xRange = SimulationConstants.XCells*SimulationConstants.XAreas;
-  var yRange = SimulationConstants.YCells*SimulationConstants.YAreas;
-  var to_return = [];
-  for(var i=0; i<yRange; i++){
-    to_return.push(new Array(xRange))
-  }
-  console.log(to_return)
-  return to_return;
-}
+////// Importing functions
+import { 
+  toServerSendSetup, 
+  toServerAddCarCrash, 
+  toServerAddParkingSpot, 
+  toServerAddCar, 
+  toServerUpdate
+} from './utils/serverComunicationFunctions'
+import {
+  createEmptyMap
+} from './utils/auxiliaryFunctions'
+
+
 
 let initialMap = new Map(
   createEmptyMap(),
@@ -34,6 +38,14 @@ let initialMap = new Map(
   new Array(),
   new Array()
 );
+
+function convert(obj) {
+  return Object.keys(obj).map(key => ({
+      name: key,
+      value: obj[key],
+      type: "foo"
+  }));
+}
 
 function getRandomArbitrary(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
@@ -51,6 +63,7 @@ export default function App() {
   let [idBuildings, setIdBuildings] = useState(0)
   let [idCarCrashes, setIdCarCrashes] = useState(0)
   let [idParkingSpots, setIdParkingSpots] = useState(0)
+  let [prueba, setPrueba] = useState(0)
   //FUNCTIONS
   function changeScreen(newScreen){
     setScreen(newScreen);
@@ -64,6 +77,8 @@ export default function App() {
       }else{
         var indexOfCar = getRandomArbitrary(0, map.cars.length)
         setSelectedCar(map.cars[indexOfCar])
+        console.log("OBJ TO DICT:", JSON.stringify(map.buildings), typeof(convert(map)))
+        toServerSendSetup(map)
       }
     }
     setStarted(starting);
@@ -89,6 +104,10 @@ export default function App() {
     mapCopy.labels[x][y] = "cc";
     setMap({...mapCopy});
     setobjectToAdd("");
+
+    if(started){
+      toServerAddCarCrash(newCarcrash)
+    }
   }
 
   function addNewParking(x, y){
@@ -100,6 +119,10 @@ export default function App() {
     mapCopy.labels[x][y] = "p";
     setMap({...mapCopy});
     setobjectToAdd("");
+    
+    if(started){
+      toServerAddParkingSpot(newParkingSpot)
+    }
   }
   
   function addNewCar(x, y){
@@ -119,6 +142,9 @@ export default function App() {
       var newCar = new Car(id, "127.0.0.1", port, xyStored[0], xyStored[1], x, y, new Array(), new Array(), new Array());
       map.objects[xyStored[0]][xyStored[1]] = id
       mapCopy.cars.push(newCar);
+      if(started){
+        toServerAddCar(newCar)
+      }
     }
     setMap({...mapCopy});
     
@@ -184,6 +210,9 @@ export default function App() {
           map.objects[x][y] = id
           mapCopy.cars.push(newCar);
           setMap({...mapCopy})
+          if(started){
+            toServerAddCar(newCar)
+          }
           break;
         case "b":
           addNewBuilding(x,y)
@@ -199,6 +228,11 @@ export default function App() {
       setobjectToAdd(type);
     }
   }
+  let updater = "";
+  if(started){
+    updater = <ReactInterval timeout={2000} enabled={true}
+    callback={() => toServerUpdate(map, setMap) }/>
+  }
   return (
     <div style={{width: '100%', height: '100%', backgroundColor: Colors.background}}>
       <Header screen={screen} changeScreen={changeScreen}/>
@@ -210,7 +244,9 @@ export default function App() {
                   addObject={addObject}
                   objectToAdd={objectToAdd}
                   screen={screen}
-                  selectedCar={selectedCar}/>
+                  selectedCar={selectedCar}
+                  prueba={prueba}/>
+      {updater}
     </div>
   );
 }
