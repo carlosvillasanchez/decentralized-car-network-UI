@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
-import MapCard from './MapCard'
-import Tools from './Tools'
+import MapCard from './MapCard';
+import Tools from './Tools';
+import Messages from './Messages';
+import ReactInterval from 'react-interval';
 
 const GeneralScreen = props => {
+  let [renderer, setRenderer] = useState([...Array(100).keys()]);
   if(props.screen === "Individual" && !props.started){
     return(
       <div>
@@ -39,10 +42,16 @@ const GeneralScreen = props => {
                       selectedCar={props.selectedCar}
                       prueba={props.prueba}/>
   if(props.screen === "Individual"){
-    toolsToRender = <div></div>
+    toolsToRender = <Messages renderer={renderer}/>
+        
   }
   return (
     <div style={divStyle}>
+      <ReactInterval 
+        timeout={2000} 
+        enabled={props.screen === "Individual"}
+        callback={() => setRenderer(r => ["e", ...r]) }
+      />  
         <div style={{display: "inline-block", height: "100%", width: "51%", float: "left"}}>
           {mapToRender}
         </div>
