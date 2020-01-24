@@ -8,9 +8,7 @@ class Car {
         initialY,
         destinyX,
         destinyY,
-        messagesTier1,
-        messagesTier2,
-        messagesTier3
+        messages
     ) {
         this.id = id;
         this.IP = IP;
@@ -19,9 +17,7 @@ class Car {
         this.initialY = initialY;
         this.destinyX = destinyX;
         this.destinyY = destinyY;
-        this.messagesTier1 = messagesTier1;
-        this.messagesTier2 = messagesTier2;
-        this.messagesTier3 = messagesTier3;
+        this.messages = messages; 
     }
 }
 

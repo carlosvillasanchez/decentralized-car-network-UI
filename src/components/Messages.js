@@ -14,15 +14,23 @@ import "../assets/stylesButton.css";
 ///// Own code imports
 import Colors from '../constants/colors'
 
-const initialFilterState = [true, true, true, true]
+const initialFilterState = {
+    "parking": true,
+    "crash": true,
+    "police": true,
+    "other": true
+};
+
+const mapTypeToColor = {
+    "parking": {color: Colors.primary},
+    "crash": {color: "green"},
+    "police": {color: "red"},
+    "other": {}
+};
+
 const Messages = props => {
     
     let [filterState, setFilterState] = useState(initialFilterState)
-
-    let styleButtons = {
-        true: {backgroundColor: Colors.primary, color: "white", textAlign: "center", fontFamily: "inherit"},
-        false: {textAlign: "center"}
-    }
 
     const divStyle = {
         width: '100%',
@@ -32,11 +40,13 @@ const Messages = props => {
     function changeState(index){
         let filterStateCopy = filterState
         filterStateCopy[index] = !filterState[index]
-        setFilterState([...filterStateCopy])
+        setFilterState({...filterStateCopy})
     }
 
-    let messagesToRender = props.renderer.map(obj => {
-        return <div><span>{obj}</span><br/></div>  
+    let messagesToRender = props.messages.map(obj => {
+        if(filterState[obj.type]){
+            return <div><span style={{...mapTypeToColor[obj.type]}}>{obj.text}</span><br/></div>
+        }
     });
 
     return (
@@ -46,7 +56,8 @@ const Messages = props => {
                         <div style={{height: "100%", display: "flex"}}>
                             <Toggle
                                 defaultChecked={true}
-                                onChange={() => {}}
+                                onChange={() => changeState("crash")}
+                                checked={filterState["crash"]}
                                 />
                             <span style={{marginBottom: "auto", marginTop: "auto", textAlign: "left", marginLeft: "4px"}}>
                                 Car crash avoidance
@@ -55,7 +66,8 @@ const Messages = props => {
                         <div style={{height: "100%", marginLeft: "21px", display: "flex"}}>
                             <Toggle
                                 defaultChecked={true}
-                                onChange={() => {}}
+                                onChange={() => changeState("police")}
+                                checked={filterState["police"]}
                                 />
                             <span style={{marginBottom: "auto", marginTop: "auto", textAlign: "left", marginLeft: "4px"}}>
                                 Car crash informing
@@ -64,7 +76,8 @@ const Messages = props => {
                         <div style={{height: "100%", marginLeft: "21px", display: "flex"}}>
                             <Toggle
                                 defaultChecked={true}
-                                onChange={() => {}}
+                                onChange={() => changeState("parking")}
+                                checked={filterState["parking"]}
                                 />
                             <span style={{marginBottom: "auto", marginTop: "auto", textAlign: "left", marginLeft: "4px"}}>
                                 Parking informing
@@ -73,7 +86,8 @@ const Messages = props => {
                         <div style={{height: "100%", marginLeft: "21px", display: "flex"}}>
                             <Toggle
                                 defaultChecked={true}
-                                onChange={() => {}}
+                                onChange={() => changeState("other")}
+                                checked={filterState["other"]}
                                 />
                             <span style={{marginBottom: "auto", marginTop: "auto", textAlign: "left", marginLeft: "4px"}}>
                                 Everything else

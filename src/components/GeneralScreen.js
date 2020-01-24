@@ -6,7 +6,6 @@ import Messages from './Messages';
 import ReactInterval from 'react-interval';
 
 const GeneralScreen = props => {
-  let [renderer, setRenderer] = useState([...Array(100).keys()]);
   if(props.screen === "Individual" && !props.started){
     return(
       <div>
@@ -20,7 +19,7 @@ const GeneralScreen = props => {
   }
   const divStyle = {
       width: '100%',
-      height: '87%',
+      height: '88%',
       paddingTop: "20px",
       paddingLeft: '2%',
       paddingRight: '2%'
@@ -39,19 +38,13 @@ const GeneralScreen = props => {
                       mapLabels={props.map.labels}
                       isObjectToAdd={isObjectToAdd}
                       screen={props.screen}
-                      selectedCar={props.selectedCar}
-                      prueba={props.prueba}/>
+                      selectedCar={props.selectedCar}/>
   if(props.screen === "Individual"){
-    toolsToRender = <Messages renderer={renderer}/>
+    toolsToRender = <Messages messages={props.selectedCar.messages}/>
         
   }
   return (
     <div style={divStyle}>
-      <ReactInterval 
-        timeout={2000} 
-        enabled={props.screen === "Individual"}
-        callback={() => setRenderer(r => ["e", ...r]) }
-      />  
         <div style={{display: "inline-block", height: "100%", width: "51%", float: "left"}}>
           {mapToRender}
         </div>

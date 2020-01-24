@@ -78,6 +78,20 @@ export default function App() {
         var indexOfCar = getRandomArbitrary(0, map.cars.length)
         setSelectedCar(map.cars[indexOfCar])
         console.log("OBJ TO DICT:", JSON.stringify(map.buildings), typeof(convert(map)))
+        //ADDING THE POLICE
+        let police = new Car(
+          "police",
+          "127.0.0.1",
+          "5555",
+          0,
+          0,
+          -1,
+          -1,
+          new Array()
+        )
+        let mapCopy = map;
+        mapCopy.cars.push(police)
+        setMap({...mapCopy});
         toServerSendSetup(map)
       }
     }
@@ -139,7 +153,8 @@ export default function App() {
       var id = idCars;
       setIdCars(id => id + 1)
       var port = 5005 + id
-      var newCar = new Car(id, "127.0.0.1", port, xyStored[0], xyStored[1], x, y, new Array(), new Array(), new Array());
+      var newCar = new Car(id, "127.0.0.1", port, xyStored[0], xyStored[1], x, y, new Array());
+      console.log("NEW CAR", newCar)
       map.objects[xyStored[0]][xyStored[1]] = id
       mapCopy.cars.push(newCar);
       if(started){
@@ -206,7 +221,8 @@ export default function App() {
           var id = idCars;
           setIdCars(id => id + 1)
           var port = 5005 + id
-          var newCar = new Car(id, "127.0.0.1", port, x, y, x2, y2, new Array(), new Array(), new Array());
+          var newCar = new Car(id, "127.0.0.1", port, x, y, x2, y2, new Array());
+          console.log("NEW CAR", newCar)
           map.objects[x][y] = id
           mapCopy.cars.push(newCar);
           setMap({...mapCopy})
@@ -244,8 +260,7 @@ export default function App() {
                   addObject={addObject}
                   objectToAdd={objectToAdd}
                   screen={screen}
-                  selectedCar={selectedCar}
-                  prueba={prueba}/>
+                  selectedCar={selectedCar}/>
       {updater}
     </div>
   );

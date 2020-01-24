@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import { FaCar, FaBuilding, FaCarCrash, FaParking } from 'react-icons/fa';
+import { GiSiren } from 'react-icons/gi'
 
 ///// Own code imports
 import Colors from '../constants/colors'
@@ -12,7 +13,8 @@ let dict_Objects = {
     "c": <span style={{color: Colors.primary, fontSize: "1.5rem"}}><FaCar/></span>,
     "cs": <span style={{color: "green", fontSize: "1.5rem"}}><FaCar/></span>,
     "cc": <span style={{color: "red", fontSize: "1.5rem"}}><FaCarCrash/></span>,
-    "p": <span style={{color: Colors.primary, fontSize: "1.5rem"}}><FaParking/></span>
+    "p": <span style={{color: Colors.primary, fontSize: "1.5rem"}}><FaParking/></span>,
+    "police": <span style={{color: "red", fontSize: "1.5rem"}}><GiSiren/></span>
 }
 
 const Col = props => {

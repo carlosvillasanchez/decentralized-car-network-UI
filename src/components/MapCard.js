@@ -6,13 +6,14 @@ import Map from './Map'
 const MapCard = (props) => {
   const divStyle = {
       width: '100%',
-      height: '100%'
+      height: '100%',
+      marginBottom: "0px"
   };
 
   return (
       <Card style={divStyle}>
           <Card.Body style={{height: "100%", width: "100%", display: "flex", flexDirection: 'column'}}>
-              <Card.Title>Vice City {props.prueba}</Card.Title>
+              <Card.Title>Vice City</Card.Title>
               <Card.Text style={{flexGrow: 1, padding: "10px"}}>
               <Map 
                 onClick={props.mapClickableOnClick} 

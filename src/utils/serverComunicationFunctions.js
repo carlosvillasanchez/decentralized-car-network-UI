@@ -1,4 +1,5 @@
 import { createEmptyMap } from  './auxiliaryFunctions';
+import Message from '../models/message';
 
 function toServerSendSetup(map){
     let buildingsArray = []
@@ -167,17 +168,31 @@ function toServerUpdate(map, setMap){
   
     // get a callback when the server responds
     xhr.addEventListener('load', () => {
+        let data = JSON.parse(xhr.response);
         var mapCopy = map;
-        let dictOfCars = JSON.parse(xhr.response)
-        console.log(dictOfCars["0"])
+        let dictOfMessages = data["Messages"]
+        let dictOfCars = data["Pos"]
+        console.log("MESSAGES", dictOfMessages)
         for(var i=0; i<map.cars.length; i++){
-            if(mapCopy.cars[i].id in dictOfCars){
-                let id = mapCopy.cars[i].id;
+            let id = mapCopy.cars[i].id;
+            if(id in dictOfCars){
                 mapCopy.cars[i].initialX = dictOfCars[id][0]
                 mapCopy.cars[i].initialY = dictOfCars[id][1]
                 mapCopy.cars[i].destinyX = dictOfCars[id][2]
                 mapCopy.cars[i].destinyY = dictOfCars[id][3]
             }
+            if(id in dictOfMessages){
+                console.log("SI")
+                for(var j=0; j<dictOfMessages[id].length; j++){
+                    let newMessage = new Message(
+                        dictOfMessages[id][j]["Type"],
+                        dictOfMessages[id][j]["Text"],
+                    )
+                    console.log("MESSAGE", newMessage)
+                    mapCopy.cars[i].messages = [newMessage, ...mapCopy.cars[i].messages];
+                }
+            }
+            console.log("UPADTING CAR", id, mapCopy.cars[i])
         }
         mapCopy.labels = newLabels(map)
         mapCopy.objects = newObjects(map)
@@ -213,7 +228,13 @@ function newLabels(map){
     }
     for(var i=0; i<map.cars.length; i++){
         let c = map.cars[i]
-        toReturn[c.initialX][c.initialY] = "c"
+        if(c.id === "police"){
+            if(c.initialX!==-1 && c.initialY!==-1){
+                toReturn[c.initialX][c.initialY] = "police"
+            }
+        }else{
+            toReturn[c.initialX][c.initialY] = "c"
+        }
     }
     return toReturn;
 }
@@ -222,7 +243,10 @@ function newObjects(map){
     let toReturn = createEmptyMap();
     for(var i=0; i<map.cars.length; i++){
         let c = map.cars[i]
-        toReturn[c.initialX][c.initialY] = c.id;
+        if(c.initialX!==-1 && c.initialY!==-1){
+            toReturn[c.initialX][c.initialY] = c.id;
+        }
+        
     }
     return toReturn;
 }

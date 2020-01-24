@@ -71,7 +71,7 @@ const Tools = props => {
     return (
         <div style={divStyle}>
             {/*ROW 1 OF TOOLS*/}
-            <div style={{widht: '100%', height: '32%', marginBottom: '2%'}}>
+            <div style={{widht: '100%', height: '31.5%', marginBottom: '2%'}}>
                 <Card style={{width: '49%', height: '100%', float: "left"}}>
                         <div style={{widht: "100%", height: "20%", backgroundColor: "white", color: Colors.primary, display: "flex", paddingLeft: "18px", paddingTop: "10px"}}>
                             <FaCar style={{marginBottom: "auto", marginTop: "auto", fontSize: "28px"}}/>
@@ -117,7 +117,7 @@ const Tools = props => {
             </div>
             
             {/*ROW 2 OF TOOLS*/}
-            <div style={{widht: '100%', height: '32%', marginBottom: '2%'}}>
+            <div style={{widht: '100%', height: '31.5%', marginBottom: '2%'}}>
                 <Card style={{width: '49%', height: '100%', float: "left"}}>
                         <div style={{widht: "100%", height: "20%", backgroundColor: "white", color: Colors.primary, display: "flex", paddingLeft: "18px", paddingTop: "10px"}}>
                             <FaCarCrash style={{marginBottom: "auto", marginTop: "auto", fontSize: "28px", color: "red"}}/>
@@ -163,7 +163,7 @@ const Tools = props => {
             </div>
             
             {/*ROW 3 OF TOOLS*/}
-            <Card style={{widht: '100%', height: '32%'}}>
+            <Card style={{widht: '100%', height: '30%'}}>
                 {startStopCardBody}
             </Card>
         </div>
