@@ -38,7 +38,7 @@ const Tools = props => {
     let startStopCardBody = <Card.Body>
             <Card.Title>Start simulation</Card.Title>
             <Card.Text>
-                If you start simulation (...)
+                When starting the simulation, all nodes (cars) are deployed and they will start moving in the map. During the simulation you will be able to add new cars, car crashes and parking spots. Buildings are not allowd.
                 <br/>
                 <AwesomeButton 
                     type="link" 
@@ -56,7 +56,7 @@ const Tools = props => {
         startStopCardBody = <Card.Body>
                 <Card.Title>Stop simulation</Card.Title>
                 <Card.Text>
-                    If you stop simulation (...)
+                    If you stop the simulation, all nodes (cars) will be destroyed and so the simulation. You will be able to start a new one, but not resume the current one.
                     <br/>
                     <AwesomeButton 
                         type="secondary" 
@@ -77,7 +77,9 @@ const Tools = props => {
                             <FaCar style={{marginBottom: "auto", marginTop: "auto", fontSize: "28px"}}/>
                         </div>
                         <div style={{position: "relative", height: "80%", width: "100%", paddingBottom: "15px", paddingLeft: "15px", paddingRight: "15px", paddingTop: "10px"}}>
-                            <Select options={carOptions} />
+                            <span>
+                                If you do not choose "random position", you will have to specify the origin and destination of the car.
+                            </span>
                             <div style={{marginTop: "15px", display: "flex"}}>
                                 <Toggle
                                     defaultChecked={true}
@@ -98,7 +100,9 @@ const Tools = props => {
                             <FaBuilding style={{marginBottom: "auto", marginTop: "auto", fontSize: "28px", color: "#6c757d"}}/>
                         </div>
                         <div style={{position: "relative", height: "80%", width: "100%", paddingBottom: "15px", paddingLeft: "15px", paddingRight: "15px", paddingTop: "10px"}}>
-                            <Select options={carOptions} />
+                            <span>
+                                Buildings are obstacles that cars will avoid while moving in the map.
+                            </span>
                             <div style={{marginTop: "15px", display: "flex"}}>
                                 <Toggle
                                     defaultChecked={true}
@@ -123,7 +127,9 @@ const Tools = props => {
                             <FaCarCrash style={{marginBottom: "auto", marginTop: "auto", fontSize: "28px", color: "red"}}/>
                         </div>
                         <div style={{position: "relative", height: "80%", width: "100%", paddingBottom: "15px", paddingLeft: "15px", paddingRight: "15px", paddingTop: "10px"}}>
-                            <Select options={carOptions} style={{zIndex: 3}} />
+                            <span>
+                                If a car discovers a car crash, it will inform the police, which moves in the map like a additional car. 
+                            </span>
                             <div style={{marginTop: "15px", display: "flex"}}>
                                 <Toggle
                                     defaultChecked={true}
@@ -144,7 +150,9 @@ const Tools = props => {
                             <FaParking style={{marginBottom: "auto", marginTop: "auto", fontSize: "28px"}}/>
                         </div>
                         <div style={{position: "relative", height: "80%", width: "100%", paddingBottom: "15px", paddingLeft: "15px", paddingRight: "15px", paddingTop: "10px"}}>
-                            <Select options={carOptions} />
+                            <span>
+                                If a car discovers a parking spot, it will inform those cars subscribed to the news group.
+                            </span>
                             <div style={{marginTop: "15px", display: "flex"}}>
                                 <Toggle
                                     defaultChecked={true}

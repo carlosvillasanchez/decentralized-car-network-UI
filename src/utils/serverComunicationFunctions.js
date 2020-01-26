@@ -1,6 +1,23 @@
 import { createEmptyMap } from  './auxiliaryFunctions';
 import Message from '../models/message';
 
+function toServerSendStop(){
+    // create a new XMLHttpRequest
+    var xhr = new XMLHttpRequest()
+  
+    // get a callback when the server responds
+    xhr.addEventListener('load', () => {
+      // update the state of the component with the result here
+      console.log(xhr.responseText)
+    })
+    
+    // open the request with the verb and the url
+    xhr.open('POST', 'http://localhost:8086/stop')
+    // send the request
+    //xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.send()
+}
+
 function toServerSendSetup(map){
     let buildingsArray = []
     let carsArray = []
@@ -207,7 +224,7 @@ function toServerUpdate(map, setMap){
     
 }
 
-export { toServerSendSetup, toServerAddCarCrash, toServerAddParkingSpot, toServerAddCar, toServerUpdate }
+export { toServerSendSetup, toServerAddCarCrash, toServerAddParkingSpot, toServerAddCar, toServerUpdate, toServerSendStop }
 
 
 // NOT EXPORTED FUNCTIONS //

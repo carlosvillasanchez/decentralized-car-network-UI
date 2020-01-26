@@ -22,7 +22,8 @@ import {
   toServerAddCarCrash, 
   toServerAddParkingSpot, 
   toServerAddCar, 
-  toServerUpdate
+  toServerUpdate,
+  toServerSendStop
 } from './utils/serverComunicationFunctions'
 import {
   createEmptyMap
@@ -83,7 +84,7 @@ export default function App() {
           "police",
           "127.0.0.1",
           "5555",
-          0,
+          0,//TODO : -1, -1
           0,
           -1,
           -1,
@@ -94,6 +95,8 @@ export default function App() {
         setMap({...mapCopy});
         toServerSendSetup(map)
       }
+    }else{
+      toServerSendStop()
     }
     setStarted(starting);
   }
