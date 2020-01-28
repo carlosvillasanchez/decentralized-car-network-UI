@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Map from './Map'
+import { AwesomeButton } from "react-awesome-button";
+import "../assets/stylesButton.css";
+import Colors from '../constants/colors'
+
+import ViceCity from '../assets/viceCity.png';
 
 const MapCard = (props) => {
   const divStyle = {
@@ -10,10 +15,37 @@ const MapCard = (props) => {
       marginBottom: "0px"
   };
 
+  let cardTitle = <Card.Title>
+                    <img
+                    src={ViceCity}
+                    height="70px"/>
+                  </Card.Title>
+  if(!props.started){
+    cardTitle = <Card.Title>
+                    <img
+                    src={ViceCity}
+                    height="70px"/>
+                    <AwesomeButton 
+                      type="primary" 
+                      style={{
+                        backgroundColor: "white",
+                        zIndex: 0,
+                        float: "right",
+                        marginRight: "10px",
+                        height: "50px",
+                        width: "140px",
+                        marginTop: "10px"
+                      }}
+                      onPress={() => {props.clearMap()}}
+                    >
+                        Clear map
+                    </AwesomeButton>
+                  </Card.Title>
+  }
   return (
       <Card style={divStyle}>
           <Card.Body style={{height: "100%", width: "100%", display: "flex", flexDirection: 'column'}}>
-              <Card.Title>Vice City</Card.Title>
+              {cardTitle}
               <Card.Text style={{flexGrow: 1, padding: "10px"}}>
               <Map 
                 onClick={props.mapClickableOnClick} 

@@ -14,7 +14,7 @@ import "../assets/stylesButton.css";
 import Colors from '../constants/colors'
 
 const typeObjectOrder = ["c", "b", "cc", "p"]
-const initialRandomState = [true, true, true, true]
+const initialRandomState = [false, false, false, false]
 const Tools = props => {
     let [randomState, setRandomState] = useState(initialRandomState);
     const divStyle = {
@@ -82,7 +82,7 @@ const Tools = props => {
                             </span>
                             <div style={{marginTop: "15px", display: "flex"}}>
                                 <Toggle
-                                    defaultChecked={true}
+                                    defaultChecked={false}
                                     onChange={() => changeRandom(0)}
                                     />
                                 <span style={{marginBottom: "auto", marginTop: "auto", textAlign: "left", marginLeft: "4px"}}>Random position</span>
@@ -105,7 +105,7 @@ const Tools = props => {
                             </span>
                             <div style={{marginTop: "15px", display: "flex"}}>
                                 <Toggle
-                                    defaultChecked={true}
+                                    defaultChecked={false}
                                     onChange={() => changeRandom(1)}
                                     />
                                 <span style={{marginBottom: "auto", marginTop: "auto", textAlign: "left", marginLeft: "4px"}}>Random position</span>
@@ -132,7 +132,7 @@ const Tools = props => {
                             </span>
                             <div style={{marginTop: "15px", display: "flex"}}>
                                 <Toggle
-                                    defaultChecked={true}
+                                    defaultChecked={false}
                                     onChange={() => changeRandom(2)}
                                     />
                                 <span style={{marginBottom: "auto", marginTop: "auto", textAlign: "left", marginLeft: "4px"}}>Random position</span>
@@ -155,7 +155,7 @@ const Tools = props => {
                             </span>
                             <div style={{marginTop: "15px", display: "flex"}}>
                                 <Toggle
-                                    defaultChecked={true}
+                                    defaultChecked={false}
                                     onChange={() => changeRandom(3)}
                                     />
                                 <span style={{marginBottom: "auto", marginTop: "auto", textAlign: "left", marginLeft: "4px"}}>Random position</span>

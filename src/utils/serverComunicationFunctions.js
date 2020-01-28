@@ -198,8 +198,9 @@ function toServerUpdate(map, setMap){
                 mapCopy.cars[i].destinyX = dictOfCars[id][2]
                 mapCopy.cars[i].destinyY = dictOfCars[id][3]
             }
-            if(id in dictOfMessages){
+            if(id in dictOfMessages && dictOfMessages[id] != null){
                 console.log("SI")
+
                 for(var j=0; j<dictOfMessages[id].length; j++){
                     let newMessage = new Message(
                         dictOfMessages[id][j]["Type"],

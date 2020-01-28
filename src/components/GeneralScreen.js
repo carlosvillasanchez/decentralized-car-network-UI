@@ -9,7 +9,7 @@ const GeneralScreen = props => {
   if(props.screen === "Individual" && !props.started){
     return(
       <div>
-        First configure the map please!
+        First define a map please! 
       </div>
     );
   }
@@ -38,17 +38,19 @@ const GeneralScreen = props => {
                       mapLabels={props.map.labels}
                       isObjectToAdd={isObjectToAdd}
                       screen={props.screen}
-                      selectedCar={props.selectedCar}/>
+                      selectedCar={props.selectedCar}
+                      started={props.started}
+                      clearMap={props.clearMap}/>
   if(props.screen === "Individual"){
     toolsToRender = <Messages messages={props.selectedCar.messages}/>
         
   }
   return (
     <div style={divStyle}>
-        <div style={{display: "inline-block", height: "100%", width: "51%", float: "left"}}>
+        <div style={{display: "inline-block", height: "100%", width: "41%", float: "left"}}>
           {mapToRender}
         </div>
-        <div style={{display: "inline-block", width: '47%', height: '100%', float: "right" }}>
+        <div style={{display: "inline-block", width: '57%', height: '100%', float: "right" }}>
           {toolsToRender}
       </div>
     </div>

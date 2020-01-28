@@ -6,7 +6,6 @@ import ReactInterval from 'react-interval';
 ///// Own code imports
 import Header from './components/Header';
 import GeneralScreen from './components/GeneralScreen';
-import IndividualScreen from './components/IndividualScreen'
 import Colors from './constants/colors';
 import SimulationConstants from './constants/simulationConstants';
 
@@ -31,7 +30,7 @@ import {
 
 
 
-let initialMap = new Map(
+const initialMap = new Map(
   createEmptyMap(),
   createEmptyMap(),
   new Array(),
@@ -84,14 +83,15 @@ export default function App() {
           "police",
           "127.0.0.1",
           "5555",
-          0,//TODO : -1, -1
           0,
-          -1,
-          -1,
+          0,
+          0,
+          0,
           new Array()
         )
         let mapCopy = map;
         mapCopy.cars.push(police)
+        mapCopy.labels[0][0] = "police"
         setMap({...mapCopy});
         toServerSendSetup(map)
       }
@@ -247,9 +247,21 @@ export default function App() {
       setobjectToAdd(type);
     }
   }
+
+  function clearMap(){
+    console.log("JEJE")
+    setMap(new Map(
+      createEmptyMap(),
+      createEmptyMap(),
+      new Array(),
+      new Array(),
+      new Array(),
+      new Array()
+    ))
+  }
   let updater = "";
   if(started){
-    updater = <ReactInterval timeout={2000} enabled={true}
+    updater = <ReactInterval timeout={300} enabled={true}
     callback={() => toServerUpdate(map, setMap) }/>
   }
   return (
@@ -263,7 +275,8 @@ export default function App() {
                   addObject={addObject}
                   objectToAdd={objectToAdd}
                   screen={screen}
-                  selectedCar={selectedCar}/>
+                  selectedCar={selectedCar}
+                  clearMap={clearMap}/>
       {updater}
     </div>
   );

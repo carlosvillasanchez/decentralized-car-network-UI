@@ -19,7 +19,9 @@ const Map = props => {
 
     const divStyle = {
         width: '100%',
-        height: '100%'
+        height: '100%',
+        marginLeft: '0%',
+        marginRight: '0%'
     };
     var xRange = SimulationConstants.XCells*SimulationConstants.XAreas;
     var yRange = SimulationConstants.YCells*SimulationConstants.YAreas;
